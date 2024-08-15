@@ -1,0 +1,18 @@
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Fait</th>
+            <th>Fougue</th>
+            <th>Rang</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let recette of recettes">
+            <td>{{ recette.name }}</td>
+            <td>{{ recette.Fait }}</td>
+            <td>{{ recette.Fougue }}</td>
+            <td>{{ recette.rang }}</td>
+        </tr>
+    </tbody>
+</table>
