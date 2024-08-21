@@ -10,8 +10,12 @@
     <tbody>
         <tr *ngFor="let recette of recettes">
             <td>{{ recette.name }}</td>
-            <td>{{ recette.Fait }}</td>
-            <td>{{ recette.Fougue }}</td>
+            <td>
+                <input type="checkbox" [(ngModel)]="recette.fait" (ngModelChange)="updateRecette(recette)"/>
+            </td>
+            <td>
+                <input type="checkbox" [(ngModel)]="recette.fougue" (ngModelChange)="updateRecette(recette)"/>
+            </td>
             <td>{{ recette.rang }}</td>
         </tr>
     </tbody>
