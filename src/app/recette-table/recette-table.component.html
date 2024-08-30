@@ -1,4 +1,5 @@
-<table>
+<div class="table-container">
+<table class="left-table">
     <thead>
         <tr>
             <th>Name</th>
@@ -11,12 +12,40 @@
         <tr *ngFor="let recette of recettes">
             <td>{{ recette.name }}</td>
             <td>
-                <input type="checkbox" [(ngModel)]="recette.fait" (ngModelChange)="updateRecette(recette)"/>
+                <input type="checkbox" [(ngModel)]="recette.fait" (ngModelChange)="handleChangeFait(recette, $event)"/>
             </td>
             <td>
-                <input type="checkbox" [(ngModel)]="recette.fougue" (ngModelChange)="updateRecette(recette)"/>
+                <input type="checkbox" [(ngModel)]="recette.fougue" (ngModelChange)="handleChangeFougue(recette, $event)"/>
             </td>
             <td>{{ recette.rang }}</td>
         </tr>
     </tbody>
 </table>
+   
+<table class="right-table">
+    <thead>
+        <tr>
+            <th>Type</th>
+            <th>Qualité</th>
+            <th>Quantité</th>
+            <th>Possédé</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let ingredientPack of ingredients">
+            <ng-container *ngFor="let ingredient of ingredientPack.elements; let i = index">
+                <tr>
+                    <td *ngIf="i === 0" [attr.rowspan]="ingredientPack.elements.length" class="type-column">
+                        {{ ingredientPack.type }}
+                    </td>
+                    <td>{{ ingredient.qualite }}</td>
+                    <td>{{ ingredient.quantite }}</td>
+                    <td>
+                        <input type="number" [(ngModel)]="ingredient.possede" (ngModelChange)="handleChangePossede(ingredientPack)" />
+                    </td>
+                </tr>
+            </ng-container>
+        </ng-container>
+    </tbody>
+</table>
+</div>

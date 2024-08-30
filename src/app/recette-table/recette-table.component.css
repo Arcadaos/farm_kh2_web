@@ -12,3 +12,17 @@ th {
     background-color: #f4f4f4;
     text-align: center;
 }
+
+.table-container {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: 0 auto;
+    
+    gap: 10%;
+}
+
+.type-column {
+    text-align: center;
+    vertical-align: middle;
+}

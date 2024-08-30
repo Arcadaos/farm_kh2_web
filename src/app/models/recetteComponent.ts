@@ -1,5 +1,5 @@
 export interface RecetteComponent {
-    niveau: string;
+    qualite: string;
     type: string;
-    quantité: number;
+    quantite: number;
 }

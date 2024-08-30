@@ -1,0 +1,377 @@
+[
+    {
+        "type": "Ardent",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 2,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 6,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Glacial",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 2,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 6,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Grondant",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 2,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 6,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Hyalin",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 2,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 6,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Force",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 8,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 2,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 6,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Noir",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 12,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 8,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 4,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 8,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Mat",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 26,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 18,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 67,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 26,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Nébuleux",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 26,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 18,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 67,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 26,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Mithril",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 52,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 38,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 14,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 17,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Vitalité",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 18,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 10,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 6,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 189,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Fougue",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Sérénité",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 8,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 23,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 23,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 13,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Divers",
+        "elements" : [
+            {
+                "qualite": "Orichalque",
+                "quantite": 13,
+                "possede": 0
+            },
+            {
+                "qualite": "Orichalque +",
+                "quantite": 13,
+                "possede": 0
+            },
+            {
+                "qualite": "Illusion manifeste",
+                "quantite": 6,
+                "possede": 0
+            },
+            {
+                "qualite": "Illusion perdue",
+                "quantite": 10,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Tranquilité",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 14,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 12,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 12,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 25,
+                "possede": 0
+            }
+        ]
+    },
+    {
+        "type": "Souvenir",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 27,
+                "possede": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 12,
+                "possede": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 12,
+                "possede": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 25,
+                "possede": 0
+            }
+        ]
+    }
+]

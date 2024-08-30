@@ -1,0 +1,317 @@
+[
+    {
+        "type": "Ardent",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Glacial",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Grondant",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Hyalin",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Force",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Noir",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Mat",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Nébuleux",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Mithril",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Vitalité",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Fougue",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Sérénité",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Divers",
+        "elements" : [
+            {
+                "qualite": "Orichalque",
+                "quantite": 0
+            },
+            {
+                "qualite": "Orichalque +",
+                "quantite": 0
+            },
+            {
+                "qualite": "Illusion manifeste",
+                "quantite": 0
+            },
+            {
+                "qualite": "Illusion perdue",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Tranquilité",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    },
+    {
+        "type": "Souvenir",
+        "elements" : [
+            {
+                "qualite": "Eclat",
+                "quantite": 0
+            },
+            {
+                "qualite": "Pierre",
+                "quantite": 0
+            },
+            {
+                "qualite": "Gemme",
+                "quantite": 0
+            },
+            {
+                "qualite": "Cristal",
+                "quantite": 0
+            }
+        ]
+    }
+]
