@@ -220,7 +220,8 @@
             {
                 "qualite": "Cristal",
                 "quantite": 17,
-                "possede": 0
+                "possede": 0,
+                "quantiteAFougue": 0
             }
         ]
     },
@@ -295,7 +296,8 @@
             {
                 "qualite": "Cristal",
                 "quantite": 13,
-                "possede": 0
+                "possede": 0,
+                "quantiteAFougue": 0
             }
         ]
     },
@@ -315,7 +317,8 @@
             {
                 "qualite": "Illusion manifeste",
                 "quantite": 6,
-                "possede": 0
+                "possede": 0,
+                "quantiteAFougue": 0
             },
             {
                 "qualite": "Illusion perdue",

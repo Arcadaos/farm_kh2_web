@@ -14,20 +14,20 @@ export class RecetteService {
   
   constructor(private http: HttpClient) { }
 
-  getRecettes(): Observable<any[]> {
-    return this.http.get<any[]>(this.recettesURL)
+  getRecettes(): Observable<Recette[]> {
+    return this.http.get<Recette[]>(this.recettesURL)
   }
 
-  getRecette(recette: string): Observable<any> {
-    return this.http.get<any>(`${this.recettesURL}/${recette}`)
+  getRecette(recette: string): Observable<Recette> {
+    return this.http.get<Recette>(`${this.recettesURL}/${recette}`)
   }
 
-  getIngredients(): Observable<any[]> {
-    return this.http.get<any[]>('/ingredients.json');
+  getIngredients(): Observable<IngredientPack[]> {
+    return this.http.get<IngredientPack[]>('/ingredients.json');
   }
 
-  getFarm(): Observable<any[]> {
-    return this.http.get<any[]>(this.farmURL)
+  getFarm(): Observable<IngredientPack[]> {
+    return this.http.get<IngredientPack[]>(this.farmURL)
   }
 
   sendRecette(recette: Recette): Observable<any> {

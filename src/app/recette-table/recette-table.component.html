@@ -29,20 +29,37 @@
             <th>Qualité</th>
             <th>Quantité</th>
             <th>Possédé</th>
+            <th>Quantité à Fougue</th>
         </tr>
     </thead>
     <tbody>
-        <ng-container *ngFor="let ingredientPack of ingredients">
-            <ng-container *ngFor="let ingredient of ingredientPack.elements; let i = index">
+        <ng-container *ngFor="let ingredientPack of ingredients; let packIndex = index">
+            <ng-container *ngFor="let ingredient of ingredientPack.elements; let ingrIndex = index">
                 <tr>
-                    <td *ngIf="i === 0" [attr.rowspan]="ingredientPack.elements.length" class="type-column">
+                    <td *ngIf="ingrIndex === 0" [attr.rowspan]="ingredientPack.elements.length" class="type-column">
                         {{ ingredientPack.type }}
                     </td>
                     <td>{{ ingredient.qualite }}</td>
                     <td>{{ ingredient.quantite }}</td>
                     <td>
-                        <input type="number" [(ngModel)]="ingredient.possede" (ngModelChange)="handleChangePossede(ingredientPack)" />
+                        <input type="number" 
+                        [(ngModel)]="newPossedeValueList[4*packIndex+ingrIndex]" 
+                        (ngModelChange)="handleChangePossede(ingredientPack.type, ingredient, newPossedeValueList[4*packIndex+ingrIndex])" 
+                        (focus)="onInputFocus(ingredient.possede, 4*packIndex+ingrIndex)" />
                     </td>
+                    <td *ngIf="isAnIngredientToCreate(ingredient.qualite, ingredientPack.type)">
+                        <div style="display: flex; flex-direction: column; align-items: center;">
+                            <span>{{ingredient.quantiteAFougue}}</span>
+                            <input 
+                            type="range" 
+                            min="0" 
+                            max="{{getMaxQuantiteAFougue(ingredient.quantite, newPossedeValueList[4*packIndex+ingrIndex])}}" 
+                            [(ngModel)]="getQuantiteAFougueOf(ingredientPack.type, ingredient.qualite).quantiteAFougue"
+                            [ngModelOptions]="{updateOn: 'change'}"
+                            (ngModelChange)="handleChangeQuantiteAFougue(ingredientPack.type, ingredient, getQuantiteAFougueOf(ingredientPack.type, ingredient.qualite).quantiteAFougue)"/>
+                        </div>
+                    </td>
+                    <td *ngIf="!isAnIngredientToCreate(ingredient.qualite, ingredientPack.type)"></td>
                 </tr>
             </ng-container>
         </ng-container>
