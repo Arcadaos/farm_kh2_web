@@ -1,28 +1,62 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600);
+
+*, *:before, *:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
+/* src/app/recette-table/recette-table.component.css or recette-table.component.scss */
+  
+:host {
+    font-family: 'Open Sans', sans-serif; /* Apply the new font only to recette-table */
+}
+  
+
+body {
+  background: #105469;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start; /* Make sure tables align at the top */
+  width: 100%; /* Ensure the container takes up the full width */
+  margin: 1em;
+}
+
+table {
+  background: #012B39;
+  border-radius: 0.25em;
+  border-collapse: collapse;
+  margin: 1em;
+  width: 45%; /* Adjust this to control table width */
 }
 
 th {
-    background-color: #f4f4f4;
-    text-align: center;
+  border-bottom: 1px solid #364043;
+  color: #E2B842;
+  font-size: 0.85em;
+  font-weight: 600;
+  padding: 0.5em 1em;
+  text-align: left;
 }
 
-.table-container {
-    display: flex;
-    justify-content: space-between;
-    width: 90%;
-    margin: 0 auto;
-    
-    gap: 10%;
+td {
+  color: #fff;
+  font-weight: 400;
+  padding: 0.65em 1em;
 }
 
-.type-column {
-    text-align: center;
-    vertical-align: middle;
+.disabled td {
+  color: #4F5F64;
+}
+
+tbody tr {
+  transition: background 0.25s ease;
+}
+
+tbody tr:hover {
+  background: #014055;
 }

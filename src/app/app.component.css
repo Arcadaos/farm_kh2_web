@@ -1,0 +1,12 @@
+@font-face {
+    font-family: 'CustomFont'; /* Replace this with your font's name */
+    src: url('../assets/fonts/Kingdom_Hearts_Font.ttf') format('truetype'); /* Ensure the correct file path */
+  }
+  
+  :host h1, :host p, :host span, :host a {
+    font-family: 'CustomFont', sans-serif; /* Apply the custom font only to app.component */
+    background: linear-gradient(to bottom, #ffffff3d, #ffffff); /* Dark grey to light grey */
+  -webkit-background-clip: text; /* Clip background to the text */
+  -webkit-text-fill-color: transparent; /* Make the text transparent to show background */
+  background-clip: text;
+  }
