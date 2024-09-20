@@ -1,45 +1,85 @@
 <div style="text-align: center; color: white">
   <p>Niveau du mog</p>
-  <p>{{ niveau }}</p>
+  <p>{{ user.niveau }}</p>
   <input
     type="range"
     min="0"
     max="10"
-    [(ngModel)]="niveau"
-    (input)="handleChangeNiveau(niveau)"
+    [(ngModel)]="user.niveau"
+    (input)="handleChangeNiveau(user.niveau)"
   />
+  <br />
+  <button
+    mat-flat-button
+    (click)="updateNiveau()"
+    style="background-color: rgb(248, 102, 121); color: rgb(233, 234, 239)"
+  >
+    Save Kupo Kupo
+  </button>
   <br />
   <div style="display: inline-flex">
     <table>
       <thead>
         <tr style="white-space: nowrap">
-          <td [ngStyle]="{ 'background-color': niveau >= 5 ? 'green' : '' }">
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 5 ? 'green' : '' }"
+          >
             Niveau 5
           </td>
-          <td [ngStyle]="{ 'background-color': niveau >= 6 ? 'green' : '' }">
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 6 ? 'green' : '' }"
+          >
             Niveau 6
           </td>
-          <td [ngStyle]="{ 'background-color': niveau >= 7 ? 'green' : '' }">
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 7 ? 'green' : '' }"
+          >
             Niveau 7
           </td>
-          <td [ngStyle]="{ 'background-color': niveau >= 9 ? 'green' : '' }">
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 9 ? 'green' : '' }"
+          >
             Niveau 9
           </td>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td [ngStyle]="{ 'background-color': niveau >= 5 ? 'green' : '' }">
-            <input type="checkbox" [checked]="niveau >= 5" [disabled]="true" />
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 5 ? 'green' : '' }"
+          >
+            <input
+              type="checkbox"
+              [checked]="user.niveau >= 5"
+              [disabled]="true"
+            />
           </td>
-          <td [ngStyle]="{ 'background-color': niveau >= 6 ? 'green' : '' }">
-            <input type="checkbox" [checked]="niveau >= 6" [disabled]="true" />
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 6 ? 'green' : '' }"
+          >
+            <input
+              type="checkbox"
+              [checked]="user.niveau >= 6"
+              [disabled]="true"
+            />
           </td>
-          <td [ngStyle]="{ 'background-color': niveau >= 7 ? 'green' : '' }">
-            <input type="checkbox" [checked]="niveau >= 7" [disabled]="true" />
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 7 ? 'green' : '' }"
+          >
+            <input
+              type="checkbox"
+              [checked]="user.niveau >= 7"
+              [disabled]="true"
+            />
           </td>
-          <td [ngStyle]="{ 'background-color': niveau >= 9 ? 'green' : '' }">
-            <input type="checkbox" [checked]="niveau >= 9" [disabled]="true" />
+          <td
+            [ngStyle]="{ 'background-color': user.niveau >= 9 ? 'green' : '' }"
+          >
+            <input
+              type="checkbox"
+              [checked]="user.niveau >= 9"
+              [disabled]="true"
+            />
           </td>
         </tr>
       </tbody>

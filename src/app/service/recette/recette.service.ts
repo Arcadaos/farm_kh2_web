@@ -91,22 +91,10 @@ export class RecetteService {
     // PARTIE POSSEDE
     if (fait) {
       recette.fougue_up_when_fait = recette.fougue;
-      recetteForChangePossede.components.forEach((component) => {
-        recette.components
-          .filter(
-            (compToSave) =>
-              compToSave.qualite === component.qualite &&
-              compToSave.type == component.type
-          )
-          .forEach((compToSave) => {
-            compToSave.val_enlevee_fait = recette.fougue
-              ? Math.ceil(component.a_farm / 2)
-              : component.a_farm;
-          });
-
-        component.quantite = -(recette.fougue
+      recetteForChangePossede.components.forEach((component, index) => {
+        recette.components[index].val_enlevee_fait = recette.fougue
           ? Math.ceil(component.a_farm / 2)
-          : component.a_farm);
+          : component.a_farm;
         component.a_farm = -(recette.fougue
           ? Math.ceil(component.a_farm / 2)
           : component.a_farm);
@@ -120,17 +108,8 @@ export class RecetteService {
         );
       }
     } else {
-      recette.components.forEach((component) => {
-        recetteForChangePossede.components
-          .filter(
-            (compSentToUpdate) =>
-              compSentToUpdate.qualite === component.qualite &&
-              compSentToUpdate.type === component.type
-          )
-          .forEach((compSentToUpdate) => {
-            compSentToUpdate.quantite = component.val_enlevee_fait;
-            compSentToUpdate.a_farm = component.val_enlevee_fait;
-          });
+      recetteForChangePossede.components.forEach((component, index) => {
+        component.a_farm = recette.components[index].val_enlevee_fait;
       });
       if (recette.fougue_up_when_fait) {
         recetteForChangePossede.components.push(
@@ -141,9 +120,6 @@ export class RecetteService {
 
     // PARTIE QUANTITE
     recetteForChangeQuantite.components.forEach((component) => {
-      component.quantite =
-        -addOrRemoveToPossede *
-        (recette.fougue ? Math.ceil(component.a_farm / 2) : component.a_farm);
       component.a_farm =
         -addOrRemoveToPossede *
         (recette.fougue ? Math.ceil(component.a_farm / 2) : component.a_farm);
@@ -160,7 +136,8 @@ export class RecetteService {
     this.ingredientService.updateIngredientsOf(
       recetteForChangeQuantite,
       recettes,
-      ingredients
+      ingredients,
+      false
     );
     this.ingredientService.handleChangePossedeAfterFaitOf(
       recetteForChangePossede,
@@ -179,22 +156,17 @@ export class RecetteService {
     recette: Recette,
     fougue: boolean,
     recettes: Recette[],
-    ingredients: IngredientPack[],
-    niveauMog: number
+    ingredients: IngredientPack[]
   ): void {
     if (!recette.fait) {
       const tempRecette: Recette = JSON.parse(JSON.stringify(recette));
       if (fougue) {
         tempRecette.components.forEach((component) => {
-          component.quantite = -Math.floor(component.a_farm / 2);
           component.a_farm = -Math.floor(component.a_farm / 2);
         });
       } else {
         tempRecette.components.forEach((component) => {
-          component.a_farm = MogUtils.hasMogBonus(recette, niveauMog)
-            ? Math.ceil(component.quantite / 2) - component.a_farm
-            : component.quantite - component.a_farm;
-          component.quantite = Math.floor(component.quantite / 2);
+          component.a_farm = Math.floor(component.a_farm / 2);
         });
       }
       tempRecette.components.push(
@@ -203,7 +175,8 @@ export class RecetteService {
       this.ingredientService.updateIngredientsOf(
         tempRecette,
         recettes,
-        ingredients
+        ingredients,
+        false
       );
       this.ingredientService.verifChangeQuantiteAFougueOf(
         recette,

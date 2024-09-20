@@ -20,8 +20,8 @@ import { Ingredient } from '../models/ingredient';
 import { userName } from '../app.config';
 
 import { MatButtonModule } from '@angular/material/button';
-import { Niveau } from '../models/niveau';
-import { MogService } from '../service/mog/mog.service';
+import { User } from '../models/user';
+import { UserService } from '../service/user/user.service';
 
 @Component({
   selector: 'app-recette-table',
@@ -33,7 +33,7 @@ import { MogService } from '../service/mog/mog.service';
 export class RecetteTableComponent implements OnInit {
   recettes: Recette[] = [];
   ingredients: IngredientPack[] = [];
-  niveau: number = 0;
+  user: User = { user: '', niveau: 0 };
   previousNiveau: number = 0;
   newPossedeValueList: number[] = [];
   ingredientsToCreate: Ingredient[] = [];
@@ -49,7 +49,7 @@ export class RecetteTableComponent implements OnInit {
   constructor(
     private recetteService: RecetteService,
     private ingredientService: IngredientService,
-    private mogService: MogService
+    private mogService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -61,9 +61,8 @@ export class RecetteTableComponent implements OnInit {
       this.recettes = results.recettes;
       this.ingredients = results.ingredients;
       this.addTypeToIngredients();
-      this.niveau = results.niveau.niveau;
-      this.previousNiveau = this.niveau;
-      console.log(this.niveau);
+      this.user = results.niveau;
+      this.previousNiveau = this.user.niveau;
       this.newPossedeValueList = results.ingredients.flatMap((ingredientPack) =>
         ingredientPack.elements.map((ingredient) => ingredient.possede)
       );
@@ -159,14 +158,55 @@ export class RecetteTableComponent implements OnInit {
   }
 
   processChangeNiveau(coche: boolean, rang: string): void {
+    const recettesOfIngredientsToCreate: Recette[] =
+      IngredientFactory.getIngredientsToCreate(this.ingredients).map(
+        (ingredient) =>
+          RecetteFactory.getRecetteOfIngredientToCreate(
+            this.recettes,
+            ingredient.type,
+            ingredient.qualite
+          )
+      );
+    const recettesToProcessLater: Recette[] = [];
     const affectedRecettes: Recette[] = this.recettes.filter(
-      (recette) => recette.rang === rang && !recette.fait
+      (recette) => recette.rang === rang
     );
-    affectedRecettes.forEach((recette) => {});
+
+    affectedRecettes.forEach((recette) => {
+      const tempRecette: Recette = JSON.parse(JSON.stringify(recette));
+      tempRecette.components.forEach((component, index) => {
+        const deltaSansFougue: number = coche
+          ? -Math.floor(recette.components[index].quantite / 2)
+          : Math.floor(recette.components[index].quantite / 2);
+
+        recette.components[index].a_farm += deltaSansFougue;
+        component.a_farm = recette.fougue
+          ? (coche ? -1 : 1) * Math.floor(Math.ceil(component.quantite / 2) / 2)
+          : deltaSansFougue;
+      });
+      if (recettesOfIngredientsToCreate.includes(recette)) {
+        recettesToProcessLater.push(tempRecette);
+      } else if (!recette.fait) {
+        this.ingredientService.updateIngredientsOf(
+          tempRecette,
+          this.recettes,
+          this.ingredients,
+          true
+        );
+      }
+    });
+    recettesToProcessLater.forEach((recette) => {
+      if (!recette.fait)
+        this.ingredientService.updateIngredientsOf(
+          recette,
+          this.recettes,
+          this.ingredients,
+          false
+        );
+    });
   }
 
   handleChangeFait(recette: Recette, fait: boolean): void {
-    console.log(recette);
     this.recetteService.handleChangeFait(
       recette,
       fait,
@@ -175,7 +215,6 @@ export class RecetteTableComponent implements OnInit {
       this.ingredientsToCreate,
       this.newPossedeValueList
     );
-    console.log(recette);
   }
 
   handleChangeFougue(recette: Recette, fougue: boolean): void {
@@ -183,8 +222,7 @@ export class RecetteTableComponent implements OnInit {
       recette,
       fougue,
       this.recettes,
-      this.ingredients,
-      this.niveau
+      this.ingredients
     );
   }
 
@@ -245,8 +283,15 @@ export class RecetteTableComponent implements OnInit {
       .subscribe((result) => console.log(result));
   }
 
+  updateNiveau(): void {
+    this.mogService
+      .updateNiveauMog(this.user)
+      .subscribe((result) => console.log(result));
+  }
+
   updateAll(): void {
     this.updateRecettes();
     this.updateIngredients();
+    this.updateNiveau();
   }
 }

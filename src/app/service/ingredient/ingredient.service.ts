@@ -29,27 +29,26 @@ export class IngredientService {
   updateIngredientsOf(
     recette: Recette,
     recettes: Recette[],
-    ingredients: IngredientPack[]
+    ingredients: IngredientPack[],
+    mogNiveauChange: boolean
   ): void {
+    const componentsToCreateToChange: RecetteComponent[] = [];
     recette.components.forEach((component) => {
       if (
         IngredientUtils.isAnIngredientToCreate(
           component.qualite,
           component.type
-        )
+        ) &&
+        !mogNiveauChange
       ) {
-        this.updateIngredientOfIngredientToCreateFrom(
-          component,
-          recettes,
-          ingredients
-        );
+        componentsToCreateToChange.push(component);
       }
       for (const ingredientPack of ingredients) {
         if (ingredientPack.type === component.type) {
           for (const ingredient of ingredientPack.elements) {
             if (ingredient.qualite === component.qualite) {
               ingredient.quantite =
-                (ingredient.quantite ?? 0) + component.quantite;
+                (ingredient.quantite ?? 0) + component.a_farm;
               break;
             }
           }
@@ -57,6 +56,13 @@ export class IngredientService {
         }
       }
     });
+    componentsToCreateToChange.forEach((component) =>
+      this.updateIngredientOfIngredientToCreateFrom(
+        component,
+        recettes,
+        ingredients
+      )
+    );
   }
 
   updateIngredientOfIngredientToCreateFrom(
@@ -70,9 +76,9 @@ export class IngredientService {
       componentToCreate.qualite
     );
     tempRecette.components.forEach(
-      (component) => (component.quantite *= componentToCreate.quantite)
+      (component) => (component.a_farm *= componentToCreate.a_farm)
     );
-    this.updateIngredientsOf(tempRecette, recettes, ingredients);
+    this.updateIngredientsOf(tempRecette, recettes, ingredients, false);
   }
 
   verifChangeQuantiteAFougueOf(
@@ -165,7 +171,7 @@ export class IngredientService {
         ingredient,
         ingredients
       );
-      newPossedeValueList[4 * packIndex + ingrIndex] += component.quantite;
+      newPossedeValueList[4 * packIndex + ingrIndex] += component.a_farm;
       return this.handleChangePossede(
         ingredient,
         newPossedeValueList[4 * packIndex + ingrIndex],
@@ -220,9 +226,9 @@ export class IngredientService {
       );
     }
     tempRecette.components.forEach(
-      (component) => (component.quantite *= -quantiteRestante)
+      (component) => (component.a_farm *= -quantiteRestante)
     );
-    this.updateIngredientsOf(tempRecette, recettes, ingredients);
+    this.updateIngredientsOf(tempRecette, recettes, ingredients, false);
   }
 
   handleChangeQuantiteAFougue(
@@ -240,13 +246,13 @@ export class IngredientService {
       newQuantiteAFougue - (ingredient.quantiteAFougue ?? 0);
     tempRecette.components.forEach(
       (component) =>
-        (component.quantite =
-          -deltaQuantiteAFougue * Math.floor(component.quantite / 2))
+        (component.a_farm =
+          -deltaQuantiteAFougue * Math.floor(component.a_farm / 2))
     );
     tempRecette.components.push(
       RecetteFactory.createFougueComponent(tempRecette, deltaQuantiteAFougue)
     );
-    this.updateIngredientsOf(tempRecette, recettes, ingredients);
+    this.updateIngredientsOf(tempRecette, recettes, ingredients, false);
     ingredient.quantiteAFougue = newQuantiteAFougue;
   }
 }
