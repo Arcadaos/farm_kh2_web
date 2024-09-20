@@ -10,15 +10,15 @@ import { Ingredient } from '../../models/ingredient';
 import { IngredientFactory } from '../../factory/ingredient.factory';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class IngredientService {
-  private farmURL = "http://localhost:5000/api/farm"
+  private farmURL = 'http://localhost:5000/api/farm';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   getIngredients(): Observable<IngredientPack[]> {
-    return this.http.get<IngredientPack[]>(this.farmURL)
+    return this.http.get<IngredientPack[]>(this.farmURL);
   }
 
   updateIngredients(ingredients: IngredientPack[]): Observable<any> {
@@ -26,68 +26,227 @@ export class IngredientService {
     return this.http.post(this.farmURL, ingredients, { headers });
   }
 
-  updateIngredientsOf(recette: Recette, recettes: Recette[], ingredients: IngredientPack[]): void {
-    recette.components.forEach(component => {
-      if (IngredientUtils.isAnIngredientToCreate(component.qualite, component.type)) {
-        this.updateIngredientToCreateFromComponent(component, recettes, ingredients);
+  updateIngredientsOf(
+    recette: Recette,
+    recettes: Recette[],
+    ingredients: IngredientPack[]
+  ): void {
+    recette.components.forEach((component) => {
+      if (
+        IngredientUtils.isAnIngredientToCreate(
+          component.qualite,
+          component.type
+        )
+      ) {
+        this.updateIngredientOfIngredientToCreateFrom(
+          component,
+          recettes,
+          ingredients
+        );
       }
       for (const ingredientPack of ingredients) {
         if (ingredientPack.type === component.type) {
-
           for (const ingredient of ingredientPack.elements) {
             if (ingredient.qualite === component.qualite) {
-              ingredient.quantite = (ingredient.quantite ?? 0) + component.quantite;
+              ingredient.quantite =
+                (ingredient.quantite ?? 0) + component.quantite;
               break;
             }
           }
           break;
         }
       }
-    })
+    });
   }
 
-  updateIngredientToCreateFromComponent(componentToCreate: RecetteComponent, recettes: Recette[], ingredients: IngredientPack[]): void {
-    const tempRecette: Recette = RecetteFactory.getRecetteOfIngredientToCreate(recettes, componentToCreate.type, componentToCreate.qualite)
-    tempRecette.components.forEach(component => component.quantite *= componentToCreate.quantite)
-    this.updateIngredientsOf(tempRecette, recettes, ingredients)
+  updateIngredientOfIngredientToCreateFrom(
+    componentToCreate: RecetteComponent,
+    recettes: Recette[],
+    ingredients: IngredientPack[]
+  ): void {
+    const tempRecette: Recette = RecetteFactory.getRecetteOfIngredientToCreate(
+      recettes,
+      componentToCreate.type,
+      componentToCreate.qualite
+    );
+    tempRecette.components.forEach(
+      (component) => (component.quantite *= componentToCreate.quantite)
+    );
+    this.updateIngredientsOf(tempRecette, recettes, ingredients);
   }
 
-  handleChangePossede(ingredient: Ingredient, newPossedeValue: number, recettes: Recette[], ingredients: IngredientPack[], ingredientsToCreate: Ingredient[]): Observable<any> { 
-    const updateCalls: { [key: string]: Observable<any>} = { 
-      changeQuantiteAFougueResponse: of(null),
-      changePossedeResponse: of(null)
+  verifChangeQuantiteAFougueOf(
+    recette: Recette,
+    recettes: Recette[],
+    ingredients: IngredientPack[]
+  ): void {
+    recette.components.forEach((component) => {
+      if (
+        IngredientUtils.isAnIngredientToCreate(
+          component.qualite,
+          component.type
+        )
+      ) {
+        const ingredientToCreate: Ingredient =
+          IngredientFactory.getIngredientToCreate(
+            IngredientFactory.getIngredientsToCreate(ingredients),
+            component.type,
+            component.qualite
+          );
+        this.updateQuantiteAFougueOfIngredientToCreate(
+          ingredientToCreate,
+          recette,
+          recettes,
+          ingredients
+        );
+      }
+    });
+  }
+
+  updateQuantiteAFougueOfIngredientToCreate(
+    ingredient: Ingredient,
+    recette: Recette,
+    recettes: Recette[],
+    ingredients: IngredientPack[]
+  ): void {
+    const addRecetteNonFaite: number = recette.fait ? 0 : 1;
+    const maxQuantiteAFougue: number =
+      ingredient.quantite - ingredient.possede - addRecetteNonFaite;
+    if ((ingredient.quantiteAFougue ?? 0) > maxQuantiteAFougue) {
+      this.handleChangeQuantiteAFougue(
+        ingredient,
+        maxQuantiteAFougue,
+        recettes,
+        ingredients
+      );
     }
-    
-    if (IngredientUtils.isAnIngredientToCreate(ingredient.qualite, ingredient.type)) {
-      updateCalls['changeQuantiteAFougueResponse'] = this.updateIngredientToCreateAfterChangePossede(ingredient, newPossedeValue ?? 0, recettes, ingredients, ingredientsToCreate)
-    }
-    ingredient.possede = newPossedeValue ?? 0
-    updateCalls['changePossedeResponse'] = this.updateIngredients(ingredients)
-    return forkJoin(updateCalls);
   }
 
-  updateIngredientToCreateAfterChangePossede(ingredient: Ingredient, newPossedeValue: number, recettes: Recette[], ingredients: IngredientPack[], ingredientsToCreate: Ingredient[]): Observable<any> {
-    var changeQuantiteAFougueResponse: Observable<any> = of(null);
-
-    const tempRecette: Recette = RecetteFactory.getRecetteOfIngredientToCreate(recettes, ingredient.type, ingredient.qualite)
-    const quantiteRestante: number = IngredientUtils.calculeQuantiteRestante(ingredient.possede, newPossedeValue, ingredient.quantite);
-    const ingredientToCreate: Ingredient = IngredientFactory.getIngredientToCreate(ingredientsToCreate, ingredient.type, ingredient.qualite)
-    if ((ingredientToCreate.quantiteAFougue ?? 0) > (ingredient.quantite - newPossedeValue)) {
-      ingredientToCreate.quantiteAFougue = Math.max(ingredient.quantite - newPossedeValue, 0)
-      changeQuantiteAFougueResponse = this.handleChangeQuantiteAFougue(ingredient, ingredientToCreate.quantiteAFougue, recettes, ingredients)
+  handleChangePossede(
+    ingredient: Ingredient,
+    newPossedeValue: number,
+    recettes: Recette[],
+    ingredients: IngredientPack[],
+    ingredientsToCreate: Ingredient[],
+    afterFait: boolean
+  ): void {
+    if (
+      IngredientUtils.isAnIngredientToCreate(
+        ingredient.qualite,
+        ingredient.type
+      )
+    ) {
+      this.updateIngredientToCreateAfterChangePossede(
+        ingredient,
+        newPossedeValue ?? 0,
+        recettes,
+        ingredients,
+        ingredientsToCreate,
+        afterFait
+      );
     }
-    tempRecette.components.forEach(component => component.quantite *= -quantiteRestante)
-    this.updateIngredientsOf(tempRecette, recettes, ingredients)
-    return changeQuantiteAFougueResponse;
+    ingredient.possede = newPossedeValue ?? 0;
   }
 
-  handleChangeQuantiteAFougue(ingredient: Ingredient, newQuantiteAFougue: number, recettes: Recette[], ingredients: IngredientPack[]): Observable<any> {
-    const tempRecette: Recette = RecetteFactory.getRecetteOfIngredientToCreate(recettes, ingredient.type, ingredient.qualite)
-    const deltaQuantiteAFougue: number = newQuantiteAFougue - (ingredient.quantiteAFougue ?? 0)
-    tempRecette.components.forEach(component => component.quantite = -deltaQuantiteAFougue*Math.floor(component.quantite/2))
-    tempRecette.components.push(RecetteFactory.createFougueComponent(tempRecette, deltaQuantiteAFougue))
-    this.updateIngredientsOf(tempRecette, recettes, ingredients)
-    ingredient.quantiteAFougue = newQuantiteAFougue
-    return this.updateIngredients(ingredients)
+  handleChangePossedeAfterFaitOf(
+    recette: Recette,
+    recettes: Recette[],
+    ingredients: IngredientPack[],
+    newPossedeValueList: number[]
+  ) {
+    recette.components.forEach((component) => {
+      const ingredient: Ingredient =
+        IngredientFactory.getIngredientFromComponent(component, ingredients);
+      const packIndex: number = IngredientUtils.getIndexOfPackIngredientOf(
+        ingredient,
+        ingredients
+      );
+      const ingrIndex: number = IngredientUtils.getIndexOfIngredientInPackOf(
+        ingredient,
+        ingredients
+      );
+      newPossedeValueList[4 * packIndex + ingrIndex] += component.quantite;
+      return this.handleChangePossede(
+        ingredient,
+        newPossedeValueList[4 * packIndex + ingrIndex],
+        recettes,
+        ingredients,
+        IngredientFactory.getIngredientsToCreate(ingredients),
+        true
+      );
+    });
+  }
+
+  updateIngredientToCreateAfterChangePossede(
+    ingredient: Ingredient,
+    newPossedeValue: number,
+    recettes: Recette[],
+    ingredients: IngredientPack[],
+    ingredientsToCreate: Ingredient[],
+    afterFait: boolean
+  ): void {
+    const tempRecette: Recette = RecetteFactory.getRecetteOfIngredientToCreate(
+      recettes,
+      ingredient.type,
+      ingredient.qualite
+    );
+    const createdElement: number = tempRecette.fait ? 0 : 1;
+    const quantiteRestante: number = afterFait
+      ? newPossedeValue - ingredient.possede
+      : IngredientUtils.calculeQuantiteRestante(
+          ingredient.possede,
+          newPossedeValue,
+          ingredient.quantite
+        );
+    const ingredientToCreate: Ingredient =
+      IngredientFactory.getIngredientToCreate(
+        ingredientsToCreate,
+        ingredient.type,
+        ingredient.qualite
+      );
+    if (
+      (ingredientToCreate.quantiteAFougue ?? 0) >
+      ingredient.quantite - newPossedeValue - createdElement
+    ) {
+      ingredientToCreate.quantiteAFougue = Math.max(
+        ingredient.quantite - newPossedeValue - createdElement,
+        0
+      );
+      this.handleChangeQuantiteAFougue(
+        ingredient,
+        ingredientToCreate.quantiteAFougue,
+        recettes,
+        ingredients
+      );
+    }
+    tempRecette.components.forEach(
+      (component) => (component.quantite *= -quantiteRestante)
+    );
+    this.updateIngredientsOf(tempRecette, recettes, ingredients);
+  }
+
+  handleChangeQuantiteAFougue(
+    ingredient: Ingredient,
+    newQuantiteAFougue: number,
+    recettes: Recette[],
+    ingredients: IngredientPack[]
+  ) {
+    const tempRecette: Recette = RecetteFactory.getRecetteOfIngredientToCreate(
+      recettes,
+      ingredient.type,
+      ingredient.qualite
+    );
+    const deltaQuantiteAFougue: number =
+      newQuantiteAFougue - (ingredient.quantiteAFougue ?? 0);
+    tempRecette.components.forEach(
+      (component) =>
+        (component.quantite =
+          -deltaQuantiteAFougue * Math.floor(component.quantite / 2))
+    );
+    tempRecette.components.push(
+      RecetteFactory.createFougueComponent(tempRecette, deltaQuantiteAFougue)
+    );
+    this.updateIngredientsOf(tempRecette, recettes, ingredients);
+    ingredient.quantiteAFougue = newQuantiteAFougue;
   }
 }

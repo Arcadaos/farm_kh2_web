@@ -49,14 +49,39 @@ td {
   padding: 0.65em 1em;
 }
 
+td input[type="number"] {
+  -moz-appearance: textfield;
+  appearance: inherit;
+}
+
+td input[type="number"]::-webkit-outer-spin-button,
+td input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.editable-input {
+  background: transparent;
+  border: none;
+  width: 100%;
+  text-align: center;
+  color: inherit;
+  font-size: inherit;
+}
+
+.editable-input:focus {
+  outline: none;
+}
+
 .disabled td {
   color: #4F5F64;
 }
 
-tbody tr {
+tbody tr .hovered {
   transition: background 0.25s ease;
+  background: #014055;
 }
 
-tbody tr:hover {
-  background: #014055;
+.ingredient-column {
+  text-align: center;
 }
